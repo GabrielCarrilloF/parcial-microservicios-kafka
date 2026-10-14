@@ -34,9 +34,8 @@ services:
       DB_USERNAME: users_app
       DB_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD en el archivo .env local}
       DB_SSL_MODE: DISABLED
-      BREVO_API_KEY: ${BREVO_API_KEY:?Defina BREVO_API_KEY en el archivo .env local}
-      BREVO_FROM_ADDRESS: ${BREVO_FROM_ADDRESS:?Defina BREVO_FROM_ADDRESS en el archivo .env local}
-      BREVO_FROM_NAME: ${BREVO_FROM_NAME:-Gestion de Usuarios}
+      RABBITMQ_URL: ${RABBITMQ_URL:?Defina RABBITMQ_URL en el archivo .env local}
+      ACCOUNTS_BASE_URL: ${ACCOUNTS_BASE_URL:-http://host.docker.internal:8081}
       JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET en el archivo .env local}
       JWT_EXPIRATION_SECONDS: ${JWT_EXPIRATION_SECONDS:-900}
     ports:
