@@ -59,6 +59,12 @@
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
+    <!-- RabbitMQ (CloudAMQP): publicacion de eventos de dominio en el exchange domain.events -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
+    </dependency>
+
     <!-- ======================================================== -->
     <!-- Dependencias no gestionadas por el BOM de Spring Boot     -->
     <!-- ======================================================== -->
@@ -78,7 +84,7 @@
       <version>${mysql.connector.version}</version>
     </dependency>
 
-    <!-- Resiliencia para el cliente HTTP de Brevo -->
+    <!-- Resiliencia (retry + circuit breaker) para la llamada sincrona a accounts - paso 5 -->
     <dependency>
       <groupId>io.github.resilience4j</groupId>
       <artifactId>resilience4j-retry</artifactId>
