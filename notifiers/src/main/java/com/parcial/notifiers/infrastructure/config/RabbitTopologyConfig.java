@@ -27,6 +27,10 @@ public class RabbitTopologyConfig {
     final Binding userCreated = BindingBuilder.bind(queue).to(exchange).with("user.created");
     final Binding userUpdated = BindingBuilder.bind(queue).to(exchange).with("user.updated");
     final Binding accountCreated = BindingBuilder.bind(queue).to(exchange).with("account.created");
-    return new Declarables(exchange, queue, userCreated, userUpdated, accountCreated);
+    // Taller Guia 9: el microservicio files avisa que creo la carpeta del usuario en el bucket
+    final Binding folderCreated =
+        BindingBuilder.bind(queue).to(exchange).with("files.folder.created");
+    return new Declarables(
+        exchange, queue, userCreated, userUpdated, accountCreated, folderCreated);
   }
 }
