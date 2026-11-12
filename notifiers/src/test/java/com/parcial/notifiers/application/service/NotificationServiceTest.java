@@ -52,6 +52,22 @@ class NotificationServiceTest {
   }
 
   @Test
+  @DisplayName("files.folder.created envia la ruta del bucket y el endpoint de carga")
+  void shouldSendFolderCreatedEmail() {
+    service.process(
+        "files.folder.created",
+        Map.of(
+            "name", "Ada",
+            "email", "ada@example.com",
+            "folderPath", "user/u-1/2026-11-09/",
+            "uploadUrl", "https://files.example.com/api/files/users/u-1/subir"));
+
+    final String body = captureEmail().getBody();
+    assertTrue(body.contains("user/u-1/2026-11-09/"));
+    assertTrue(body.contains("https://files.example.com/api/files/users/u-1/subir"));
+  }
+
+  @Test
   @DisplayName("Un evento sin plantilla se ignora")
   void shouldIgnoreUnknownEvent() {
     assertFalse(service.process("user.deleted", Map.of("email", "ada@example.com")));

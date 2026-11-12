@@ -32,7 +32,9 @@ public class NotificationService implements ProcessDomainEventUseCase {
           "user.updated",
           new EmailTemplate("user-updated.html", "Tu cuenta ha sido actualizada — Gestion de Usuarios"),
           "account.created",
-          new EmailTemplate("account-created.html", "Tu cuenta bancaria ha sido creada"));
+          new EmailTemplate("account-created.html", "Tu cuenta bancaria ha sido creada"),
+          "files.folder.created",
+          new EmailTemplate("files-folder-created.html", "Tu carpeta de archivos esta lista"));
 
   private final EmailSenderPort emailSenderPort;
 
