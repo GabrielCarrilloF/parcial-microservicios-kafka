@@ -21,7 +21,15 @@ Este archivo contiene la conexion local a MySQL, la semilla JWT, la URL de Rabbi
 (CloudAMQP) y la URL del microservicio accounts. La carpeta `.environments` esta excluida de Git y del contexto de Docker.
 
 En produccion no se utiliza este archivo: los secretos deben configurarse mediante las
-variables de entorno `DB_*`, `JWT_SECRET`, `RABBITMQ_URL` y `ACCOUNTS_BASE_URL` del proveedor de despliegue.
+variables de entorno `DB_*`, `JWT_SECRET`, `RABBITMQ_URL`, `ACCOUNTS_BASE_URL` y `VALKEY_URL` del proveedor de despliegue.
+
+## Cache distribuida Valkey (taller, Guia 10)
+
+`GET /api/users/{id}` usa el patron cache-aside sobre Valkey (Aiven): la primera consulta va a
+TiDB y guarda el usuario en la clave `users:user:{id}` con TTL (`CACHE_USERS_TTL`, 10 minutos por
+defecto); las siguientes se responden desde la cache. Al actualizar o eliminar se borra la clave
+para que ninguna replica lea datos viejos. Si `VALKEY_URL` esta vacia o Valkey no responde, el
+servicio sigue funcionando contra la base de datos. Las claves se pueden ver en Redis Insight.
 
 ## Docker Compose local
 
@@ -43,7 +51,7 @@ automático de cada commit que llegue a la rama `main`.
 
 1. Crear un Blueprint en Render y seleccionar este repositorio.
 2. Completar en el panel los secretos marcados como requeridos: `DB_HOST`,
-   `DB_USERNAME`, `DB_PASSWORD`, `RABBITMQ_URL` y `ACCOUNTS_BASE_URL`.
+   `DB_USERNAME`, `DB_PASSWORD`, `RABBITMQ_URL`, `ACCOUNTS_BASE_URL` y `VALKEY_URL`.
 3. Usar una instancia MySQL accesible desde Internet o desde la red privada de
    Render y ejecutar `src/main/resources/schema.sql` una vez para crear el esquema.
 4. Desplegar el Blueprint. La API quedará disponible en el subdominio

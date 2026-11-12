@@ -36,6 +36,7 @@ services:
       DB_SSL_MODE: DISABLED
       RABBITMQ_URL: ${RABBITMQ_URL:?Defina RABBITMQ_URL en el archivo .env local}
       ACCOUNTS_BASE_URL: ${ACCOUNTS_BASE_URL:-http://host.docker.internal:8081}
+      VALKEY_URL: ${VALKEY_URL:-}
       JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET en el archivo .env local}
       JWT_EXPIRATION_SECONDS: ${JWT_EXPIRATION_SECONDS:-900}
     ports:
